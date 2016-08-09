@@ -163,9 +163,13 @@ void PolylineDecomposer::getAndWriteVertexToBuffer(float* buffer, int offset, do
 {
     double coordinate = 0.;
 
+	// @Adhitya: Added for testing!
+	double x_coordinate = 0., y_coordinate = 0., z_coordinate = 0.;
+
     if (coordinateMask & 0x01)
     {
         coordinate = coordinates[vertexIndices[0]];
+        x_coordinate = coordinate;
 
         if (xshift != NULL)
         {
@@ -183,6 +187,7 @@ void PolylineDecomposer::getAndWriteVertexToBuffer(float* buffer, int offset, do
     if (coordinateMask & 0x02)
     {
         coordinate = coordinates[vertexIndices[1] + nPoints];
+        y_coordinate = coordinate;
 
         if (yshift != NULL)
         {
@@ -200,6 +205,7 @@ void PolylineDecomposer::getAndWriteVertexToBuffer(float* buffer, int offset, do
     if (coordinateMask & 0x04)
     {
         coordinate = coordinates[vertexIndices[2] + 2 * nPoints];
+        z_coordinate = coordinate;
 
         if (zshift != NULL)
         {
@@ -218,7 +224,15 @@ void PolylineDecomposer::getAndWriteVertexToBuffer(float* buffer, int offset, do
     {
         buffer[offset + 3] = 1.0;
     }
-
+    
+    FILE* filePointer = NULL;
+    filePointer = fopen("dynamic-points.txt", "a");
+    if(filePointer != NULL)
+    {
+        fprintf(filePointer, "%f %f %f\n", x_coordinate, y_coordinate, z_coordinate);
+        fclose(filePointer);
+    }
+    
 }
 
 void PolylineDecomposer::fillStairDecompositionVertices(int id, float* buffer, int bufferLength, int elementsSize, int coordinateMask, double* scale, double* translation,
