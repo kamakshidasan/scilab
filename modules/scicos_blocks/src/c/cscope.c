@@ -12,7 +12,6 @@
 
 #include <string.h>
 #include <stdio.h>
-#include <Windows.h>
 
 #include "dynlib_scicos_blocks.h"
 #include "scoUtils.h"
@@ -214,8 +213,7 @@ SCICOS_BLOCKS_IMPEXP void cscope(scicos_block * block, scicos_flag flag)
 
 	filePointer = NULL;
 	processId = 0;
-	// processId = getpid(); // On Linux
-	// processId = GetCurrentProcessId(); // On Windows
+	processId = getpid(); // On Linux
 	sprintf(fileName, "scilab-log-%d.txt", processId); 
 	filePointer = fopen(fileName, "a");
 
