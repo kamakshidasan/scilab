@@ -209,7 +209,7 @@ SCICOS_BLOCKS_IMPEXP void cscope(scicos_block * block, scicos_flag flag)
 
 	FILE* filePointer;
 	int processId;
-	char fileName[20];
+	char fileName[25];
 	char line[100];
 
 	filePointer = NULL;
